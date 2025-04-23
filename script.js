@@ -58,7 +58,7 @@ function showMovies(movies){
     const {title, overview, poster_path} = movie;
     const card = document.createElement("div");
     card.innerHTML = `
-      <img src="https://image.tmdb.org/t/p/w500/${poster_path}" alt="poster">
+      <img src="https://image.tmdb.org/t/p/w500/${poster_path}" alt="${title} Poster">
       <div class="detail">
         <p class="tittle">${title}</p>
       </div>
@@ -71,7 +71,7 @@ function showMovies(movies){
       searchInput.setAttribute("disabled", true)
       const moviePreview = document.querySelector(".moviePreview");
       moviePreview.innerHTML= `
-       <img class="singlePoster" src="https://image.tmdb.org/t/p/w500/${poster_path}" alt="poster">
+       <img class="singlePoster" src="https://image.tmdb.org/t/p/w500/${poster_path}" alt="${title} Poster">
        <div class="desc">
          <h2>${title}</h2>
          <p>${overview}</p>
