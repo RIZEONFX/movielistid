@@ -3,13 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#121212" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Testing web</title>
+<!-- <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />-->
+  <link rel="stylesheet" href="style.css">
+  <title>SS MovieList</title>
 </head>
 <body>
-  <h1>Testing-Testing</h1>
-  <script>
-    console.log("testing");
-  </script>
+  <header>
+    <h1>SS MovieList</h1>
+    <input id="searchInput" onchange="search()" type="search" placeholder="search movie here..">
+  </header>
+  <main>
+    <div id="displaySearch"></div>
+    <section class="moviesContainer">
+    </section>
+    <section class="moviePreview">
+      
+    </section>
+    <section id="messageContainer">
+      <p id="message"></p>
+    </section>
+  </main>
+  <footer>
+    <div class="btnContainer">
+      <div class="changePage">
+        <button id="btnPrev" onclick="prevPage()"><</button>
+        <p id="pageNumber">1</p>
+        <button id="btnNext">></button>
+      </div>
+    </div>
+  </footer>
+  <script src="script.js"></script>
 </body>
 </html>
