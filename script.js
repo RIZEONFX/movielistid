@@ -12,19 +12,19 @@ async function fetchMovie(url){
     message.innerHTML = "loading...";
     let data = await fetch(url);
     let response = await data.json();
-    toDisplay(response.results);
-    console.log(response.results);
+    toDisplay(response.results, response.total_results);
+    console.log(response.total_results);
   } catch(error) {
     message.innerHTML = "failed to load: check your internet connection";
     console.log(error);
   }
 }
 
-function toDisplay(list){
-  showMovies(list);
+function toDisplay(list, totalList){
+  showMovies(list, totalList);
 }
 
-function showMovies(movies){
+function showMovies(movies, totalMovies){
   const container = document.querySelector(".moviesContainer");
   const changeBtns = document.querySelector(".btnContainer");
   container.innerHTML = "";
@@ -34,7 +34,7 @@ function showMovies(movies){
   
   if(movies.length > 0 && isSearch){
     message.innerHTML = "";
-    displaySearch.innerHTML = `<h2>Result: ${searchInput.value}</h2>`
+    displaySearch.innerHTML = `<h2>Result: ${searchInput.value} (${totalMovies} founds)</h2>`
     displaySearch.style.display = "block";
     changeBtns.style.display = "flex";
     btnNext.addEventListener("click", nextPage);
@@ -43,24 +43,30 @@ function showMovies(movies){
     changeBtns.style.display = "flex";
     btnNext.addEventListener("click", nextPage);
   } else if(isSearch && page > 1) {
-    displaySearch.innerHTML = `<h2>Result: ${searchInput.value}</h2>`
+    displaySearch.innerHTML = `<h2>Result: ${searchInput.value} (${totalMovies} founds)</h2>`
     displaySearch.style.display = "block";
     message.innerHTML = "The page doesn't contain the movie you are looking for anymore, go back to the previous page";
     changeBtns.style.display = "flex";
     btnNext.removeEventListener("click", nextPage);
   } else {
-    displaySearch.innerHTML = `<h2>Result: ${searchInput.value}</h2>`
+    displaySearch.innerHTML = `<h2>Result: ${searchInput.value} (${totalMovies} founds)</h2>`
     displaySearch.style.display = "block";
     message.innerHTML = "Movie is not found";
     changeBtns.style.display = "none";
   }
   movies.map(movie => {
     const {title, overview, poster_path} = movie;
+    let titleMovie = "";
+    if(title.length >= 45){
+        titleMovie = title.substring(0, 45) + "...";
+    } else {
+        titleMovie = title;
+    }
     const card = document.createElement("div");
     card.innerHTML = `
-      <img src="https://image.tmdb.org/t/p/w500/${poster_path}" alt="${title} Poster">
+      <img src="https://image.tmdb.org/t/p/w500/${String(poster_path)}" alt="${titleMovie} Poster">
       <div class="detail">
-        <p class="tittle">${title}</p>
+        <p class="tittle">${titleMovie}</p>
       </div>
     `;
     card.classList.add("card");
